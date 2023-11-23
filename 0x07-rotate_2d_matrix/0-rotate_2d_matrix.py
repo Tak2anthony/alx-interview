@@ -1,28 +1,14 @@
 #!/usr/bin/python3
-"""Rotates a 2D matrix"""
+"""Rotate a 2d matrix in-place"""
 
 
-def rotate_2d_matrix(matrix):
-    """
-       Rotates 2D matrix 90 degrees clockwise
-       Matrix is edited in-place
-       args:
-          matrix
-    """
-    left, right = 0, len(matrix) - 1
-
-    while left < right:
-        for i in range(right - left):
-            top, bottom = left, right
-            # save topleft  value
-            topLeft = matrix[top][left + i]
-            # move bottom left to top left
-            matrix[top][left + i] = matrix[bottom - i][left]
-            # move bottom right to bottom left
-            matrix[bottom - i][left] = matrix[bottom][right - i]
-            # move top right to bottom right
-            matrix[bottom][right - i] = matrix[top + i][right]
-            # move top left to top right
-            matrix[top + i][right] = topLeft
-        right -= 1
-        left += 1
+def rotate_2d_matrix(matrix: list):
+    """Rotate 2d matric in-place"""
+    rotate = {}
+    length = len(matrix)
+    for row in matrix:
+        length -= 1
+        rotate[length] = [*row]
+    for row in matrix:
+        for index, _ in enumerate(row):
+            row[index] = rotate[index].pop(0)
